@@ -1,0 +1,105 @@
+
+<mat-spinner *ngIf="submitted" class="loader-class"></mat-spinner>
+
+<mat-card *ngIf="screen === 'add'">Employee Add</mat-card>
+<mat-card *ngIf="screen === 'edit'">Employee Edit</mat-card>
+
+<div class="main-div" style="margin-top: 1%;">
+
+    <mat-card class="example-card">
+    
+        <form [formGroup]="employeeForm">
+
+              <div *ngIf="screen === 'edit'" class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>employee ID</mat-label>
+                  <input matInput name="empId" formControlName="empId">
+                  <mat-error *ngIf="f.empId.errors?.required">employee ID is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>name</mat-label>
+                  <input matInput name="empName" formControlName="empName">
+                  <mat-error *ngIf="f.empName.errors?.required">employee Name is required</mat-error>
+                  <mat-error *ngIf="f.empName.errors?.maxlength">employee Name should be max 25 digit</mat-error>
+                </mat-form-field>
+              </div>
+          
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>email</mat-label>
+                  <input matInput name="email" formControlName="email">
+                  <mat-error *ngIf="f.email.errors?.required">email is required</mat-error>
+                  <mat-error *ngIf="f.email.errors?.email">invalid email</mat-error>
+                  <mat-error *ngIf="f.email.errors?.maxlength">email should be max 60 characters</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>password</mat-label>
+                  <input matInput name="password" formControlName="password">
+                  <mat-error *ngIf="f.password.errors?.required">password is required</mat-error>
+                  <mat-error *ngIf="f.password.errors?.maxlength">password should be max 60 characters</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>role</mat-label>
+                  <mat-select name="role" formControlName="role">
+                    <mat-option [value]="1" >admin</mat-option>
+                    <mat-option [value]="2">employee</mat-option>
+                  </mat-select> 
+                  <mat-error *ngIf="f.role.errors?.required">role is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="example-container center-align">
+                
+              <mat-form-field appearance="fill" class="mat-form-width">
+                <mat-label>date of birth</mat-label>
+                <input matInput [matDatepicker]="picker1" name="dob" formControlName="dob">
+                <mat-error *ngIf="f.dob.errors?.required">date of birth is invalid</mat-error>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+              </mat-form-field>
+              </div>
+         
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>mobile number</mat-label>
+                  <input matInput name="mobileNumber" formControlName="mobileNumber">
+                  <mat-error *ngIf="f.mobileNumber.errors?.pattern">mobile number is invalid</mat-error>
+                  <mat-error *ngIf="f.mobileNumber.errors?.minlength">mobile number should be atleast 10 digit</mat-error>
+                  <mat-error *ngIf="f.mobileNumber.errors?.maxlength">mobile number should be max 12 digit</mat-error>
+                </mat-form-field>
+              </div>
+
+              
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>gender</mat-label>
+                  <mat-select name="gender" formControlName="gender">
+                    <mat-option [value]="1">male</mat-option>
+                    <mat-option [value]="2">female</mat-option>
+                  </mat-select> 
+                  <mat-error *ngIf="f.role.errors?.required">gender is required</mat-error>
+                </mat-form-field>
+              </div>
+                        
+            <section>
+                <div class="example-button-row">
+                  <button *ngIf="screen === 'add'" style="width:30%" mat-raised-button color="primary" type="submit" [disabled]="!employeeForm.valid || submitted" (click)="onSave()">Save</button> 
+                  <button *ngIf="screen === 'edit'" style="width:30%" mat-raised-button color="primary" type="submit" [disabled]="!employeeForm.valid || submitted || !employeeForm.dirty" (click)="onUpdate()">Update</button>
+                
+                </div>
+            </section>
+        
+          </form>
+        
+        </mat-card>
+
+</div>

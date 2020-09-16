@@ -1,0 +1,55 @@
+.example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+  .example-card {
+    padding: 3% 12% 3% 12%;
+  }
+
+.example-button-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-raised-button{
+    margin-top: 3%;
+    width : 60%
+}
+
+.mat-form-width{
+  width: 70%;
+}
+
+.center-align{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-card1 {
+    /* max-width: 400px; */
+    margin-bottom: 1%;
+  }
+  
+  .example-header-image {
+    background-image: url('../../../assets/people.svg');
+    background-size: cover;
+  }
+
+  .bg-color{
+    color: crimson;
+  }
+  .font-head{
+    font-size: x-large;
+      margin-bottom: 1%;
+      font-weight: bolder;
+  }
+  .font-head1{
+    font-weight: bolder;
+    margin-bottom: 1%;
+  }
+
+  .star-color{
+    color :#ffc400;
+  }

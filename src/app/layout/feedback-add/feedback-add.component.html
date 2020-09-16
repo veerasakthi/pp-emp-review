@@ -1,0 +1,75 @@
+
+<mat-spinner *ngIf="submitted" class="loader-class"></mat-spinner>
+
+<mat-card >Feedback Add</mat-card>
+
+<div style="margin-top: 1%;">
+
+    <mat-card class="example-card1 card-bg-color" *ngFor="let item of reviewHeader; let i = index">
+      <div class="font-head1">give feedback for</div>
+        <div fxLayout="row" class="parent">
+          <div fxFlex="10%" class="left">emp id</div>
+          <div fxFlex="20%" class="right bg-color">{{item.employee_id}}</div>
+          
+          <div fxFlex="10%" class="left">emp name</div>
+          <div fxFlex="20%" class="right bg-color">{{item.employee_name}}</div>
+        </div>
+        <div fxLayout="row" class="parent">
+          <div fxFlex="10%" class="left">created date</div>
+          <div fxFlex="20%" class="right bg-color">{{item.created_date | date}}</div>
+          
+          <div fxFlex="10%" class="left">title</div>
+          <div fxFlex="20%" class="right bg-color">{{item.title}}</div>
+        </div>
+        <div fxLayout="row" class="parent">
+          <div fxFlex="10%" class="left">comments</div>
+          <div fxFlex="80%" class="right bg-color">{{item.comments}}</div>
+          
+        </div>
+    </mat-card>
+
+    <mat-card class="example-card ">
+    
+        <form [formGroup]="feedbackForm">
+
+            <div fxLayout="row" class="example-container center-align">
+              <div fxFlex="20%" class="left"></div>
+              <div fxFlex="10%" class="right">rating</div>
+              <div fxFlex="10%" class="left">( {{rating}}/5 )</div>
+              <div fxFlex="50%" class="left">
+                <span *ngFor="let item of getStars(rating); let i = index" class="material-icons star-color">star_rate </span>
+              </div>
+              
+            </div>
+               
+             <div class="example-container center-align">
+                  <mat-slider style="width:70%"
+                        thumbLabel
+                        [(value)]="rating"
+                        min="0"
+                        max="5"
+                        (change)="onChange()">
+                    </mat-slider>
+              </div>
+          
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>feedback</mat-label>
+                  <textarea matInput name="feedback" formControlName="feedback" style="height:100px"></textarea>
+                  <mat-error *ngIf="f.feedback.errors?.required">feedback is required</mat-error>
+                  <mat-error *ngIf="f.feedback.errors?.maxlength">feedback should be max 400 characters</mat-error>
+                </mat-form-field>
+              </div>
+                        
+            <section>
+                <div class="example-button-row">
+                  <button style="width:30%" mat-raised-button color="primary" type="submit" [disabled]="!feedbackForm.valid || submitted || !feedbackForm.dirty" (click)="onSave()">Save</button> 
+                
+                </div>
+            </section>
+        
+          </form>
+        
+        </mat-card>
+
+</div>

@@ -1,0 +1,82 @@
+
+<mat-spinner *ngIf="submitted" class="loader-class"></mat-spinner>
+
+<mat-card *ngIf="screen === 'add'">Review Add</mat-card>
+
+<div class="main-div" style="margin-top: 1%;">
+
+    <mat-card class="example-card">
+    
+        <form [formGroup]="reviewForm">
+
+              <div *ngIf="screen === 'edit'" class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>review ID</mat-label>
+                  <input matInput name="reviewId" formControlName="reviewId">
+                </mat-form-field>
+              </div>
+
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>title</mat-label>
+                  <input matInput name="title" formControlName="title">
+                  <mat-error *ngIf="f.title.errors?.required">title is required</mat-error>
+                  <mat-error *ngIf="f.title.errors?.maxlength">title should be max 40 characters</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="example-container center-align">
+                  <mat-form-field  appearance="fill" class="mat-form-width">
+                    <mat-label>employee</mat-label>
+                    <input type="text"
+                           placeholder="type employee same to get suggestion"
+                           aria-label="Number"
+                           matInput
+                           formControlName="employee"
+                           name="employee"
+                           [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.empId">
+                        {{option.empId}} {{option.empName}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+              </div>
+              <div *ngIf="selectedEmployee.length>0" class="example-container center-align" style="min-height: 52px;">
+                <mat-chip-list aria-label="Fish selection">
+                  <mat-chip color="primary" selected>{{selectedEmployee[0].empName}}</mat-chip>
+                </mat-chip-list>
+              </div>
+              
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                    <mat-label>reviewers</mat-label>
+                    <mat-select multiple name="reviewers" formControlName="reviewers">
+                      <mat-option *ngFor="let emp of employeeList" [value]="emp.empId">{{emp.empId}} {{emp.empName}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="f.reviewers.errors?.required">reviewers is required</mat-error>
+                  </mat-form-field>
+              </div>
+              
+              <div class="example-container center-align">
+                <mat-form-field appearance="fill" class="mat-form-width">
+                  <mat-label>comments</mat-label>
+                  <textarea matInput name="comments" formControlName="comments"></textarea>
+                  <mat-error *ngIf="f.comments.errors?.required">comments is required</mat-error>
+                  <mat-error *ngIf="f.comments.errors?.maxlength">comments should be max 150 characters</mat-error>
+               
+                </mat-form-field>
+              </div>
+                        
+            <section>
+                <div class="example-button-row">
+                  <button *ngIf="screen === 'add'" style="width:30%" mat-raised-button color="primary" type="submit" [disabled]="!reviewForm.valid || submitted" (click)="onSave()">Create</button> 
+                
+                </div>
+            </section>
+        
+          </form>
+        
+        </mat-card>
+
+</div>

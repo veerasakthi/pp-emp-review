@@ -1,0 +1,46 @@
+
+<mat-spinner *ngIf="isSpinning" class="loader-class"></mat-spinner>
+
+<div>
+
+<div class="title-style">
+    pp review app
+</div>
+
+  
+<div class="main-div">
+
+  <mat-card class="example-card">
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+          <div class="example-container">
+              <mat-form-field appearance="fill" class ="mat-form-width">
+                <mat-label>user name</mat-label>
+                <input matInput name="userName" formControlName="userName" required>
+                <mat-error *ngIf="f.userName.errors?.required">user name is required</mat-error>
+              </mat-form-field>
+            </div>
+        
+            <div class="example-container">
+              <mat-form-field appearance="fill" class ="mat-form-width">
+                <mat-label>password</mat-label>
+                <input type ="password" matInput name="password" formControlName="password" required>
+                <mat-error *ngIf="f.password.errors?.required">password is required</mat-error>
+              </mat-form-field>
+            </div>
+          
+          
+          <section>
+              <div class="example-button-row">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid || isSpinning">login</button>
+              </div>
+          </section>
+      
+        </form>
+      
+        
+      </mat-card>
+
+</div>
+</div>

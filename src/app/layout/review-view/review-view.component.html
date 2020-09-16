@@ -1,0 +1,60 @@
+<mat-spinner *ngIf="submitted" class="loader-class"></mat-spinner>
+
+<mat-card class="example-card" *ngFor="let item of reviewHeader; let i = index">
+    <div class="font-head">List of Feedbacks</div>
+    <div fxLayout="row" class="parent">
+      <div fxFlex="10%" class="left">emp id</div>
+      <div fxFlex="20%" class="right bg-color">{{item.employee_id}}</div>
+      
+      <div fxFlex="10%" class="left">emp name</div>
+      <div fxFlex="20%" class="right bg-color">{{item.employee_name}}</div>
+    </div>
+    <div fxLayout="row" class="parent">
+      <div fxFlex="10%" class="left">created date</div>
+      <div fxFlex="20%" class="right bg-color">{{item.created_date | date:'yyyy/MM/dd, h:mm a'}}</div>
+      
+      <div fxFlex="10%" class="left">title</div>
+      <div fxFlex="20%" class="right bg-color">{{item.title}}</div>
+    </div>
+    <div fxLayout="row" class="parent">
+      <div fxFlex="10%" class="left">comments</div>
+      <div fxFlex="80%" class="right bg-color">{{item.comments}}</div>
+      
+    </div>
+</mat-card>
+
+<mat-card class="example-card card-bg-color" *ngFor="let item of reviewList; let i = index">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{item.reviewerName}}</mat-card-title>
+      <mat-card-subtitle>emp id <span class="bg-color">{{item.reviewerId}}</span> | updated on <span class="bg-color">{{item.updated_date | date:'yyyy/MM/dd, h:mm a'}}</span></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+       <div *ngIf="item.feedback != null">
+            <mat-card class="example-card mat-min-height">
+                <div><span class="font-head1">Rating</span> ({{item.rating}}/5)</div>
+                <span *ngFor="let item of getStars(item.rating); let i = index" class="material-icons star-color">star_rate </span>
+                <mat-card-title> <mat-slider class="slider-cls"
+                    thumbLabel
+                    [value]="item.rating"
+                    min="0"
+                    max="5">
+                </mat-slider></mat-card-title>
+            </mat-card>
+
+            <mat-card class="mat-min-height">
+                <div class="font-head1"> Feedback</div>
+                    {{item.feedback}}
+            </mat-card>
+       </div>
+       <div>
+
+   </div>
+
+   <mat-card *ngIf="item.feedback == null" >
+      <div class="font-head1"> waiting for feedback</div>
+    </mat-card>
+
+    </mat-card-content>
+</mat-card>

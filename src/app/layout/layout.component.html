@@ -1,0 +1,58 @@
+<mat-sidenav-container class="sidenav-container">
+  
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false">
+        
+      <mat-toolbar class="bg-color title-style">PP Review App</mat-toolbar>
+  
+      <mat-nav-list>
+
+        <a *ngIf="localStorage.role == 1" mat-list-item [routerLinkActive]="'active'" [routerLink]="['/employee/add']">
+          <mat-icon class="sidenav-icon">add_circle_outline</mat-icon> <span class="left-margin10">Employee Add</span>
+        </a>
+        <a *ngIf="localStorage.role == 1" mat-list-item [routerLinkActive]="'active'" [routerLink]="['/employee-list']">
+          <mat-icon class="sidenav-icon">people_outline</mat-icon> <span class="left-margin10">Employee List</span> 
+        </a>
+        <a *ngIf="localStorage.role == 1" mat-list-item [routerLinkActive]="'active'" [routerLink]="['/review/add']">
+          <mat-icon class="sidenav-icon">rate_review</mat-icon> <span class="left-margin10">Review Add</span>
+        </a>
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/review-list']">
+          <mat-icon class="sidenav-icon">receipt_long</mat-icon> <span class="left-margin10"> Review List</span>
+        </a>
+      </mat-nav-list>
+  
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+  
+      <mat-toolbar class="bg-color">
+  
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+  
+        <span class="spacer"></span>
+  
+        <span class="header-name">hi {{localStorage.empName}} | {{getRole()}}</span>
+       
+        <span class="flex1"></span>
+  
+        <mat-icon aria-hidden="false" aria-label="logout" (click)="logout()" >exit_to_app</mat-icon>
+  
+      </mat-toolbar>
+      
+      <div style="margin: 3%;"> 
+        <router-outlet></router-outlet>
+      </div>
+
+    </mat-sidenav-content>
+  
+  </mat-sidenav-container>
+  
