@@ -29,7 +29,7 @@
                   <mat-form-field  appearance="fill" class="mat-form-width">
                     <mat-label>employee</mat-label>
                     <input type="text"
-                           placeholder="type employee same to get suggestion"
+                           placeholder="type employee name to get auto suggestion"
                            aria-label="Number"
                            matInput
                            formControlName="employee"
@@ -40,6 +40,9 @@
                         {{option.empId}} {{option.empName}}
                       </mat-option>
                     </mat-autocomplete>
+                    <mat-error *ngIf="f.employee.errors?.required">employee is required</mat-error>
+                    <mat-error *ngIf="f.employee.errors?.alreadyExist">employee is selected in the reviewers - cant review for himself </mat-error>
+                    <mat-error *ngIf="f.employee.errors?.invalid">invalid or unrecognised value. type and get auto suggestion then choose from auto suggestion list </mat-error>
                   </mat-form-field>
               </div>
               <div *ngIf="selectedEmployee.length>0" class="example-container center-align" style="min-height: 52px;">
@@ -52,7 +55,7 @@
                 <mat-form-field appearance="fill" class="mat-form-width">
                     <mat-label>reviewers</mat-label>
                     <mat-select multiple name="reviewers" formControlName="reviewers">
-                      <mat-option *ngFor="let emp of employeeList" [value]="emp.empId">{{emp.empId}} {{emp.empName}}</mat-option>
+                      <mat-option *ngFor="let emp of employeeList" [value]="emp.empId" [disabled]="emp.empId == f.employee.value">{{emp.empId}} {{emp.empName}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="f.reviewers.errors?.required">reviewers is required</mat-error>
                   </mat-form-field>

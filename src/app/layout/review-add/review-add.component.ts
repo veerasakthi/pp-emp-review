@@ -76,6 +76,17 @@ export class ReviewAddComponent implements OnInit {
 
     });
 
+    this.reviewForm.get('employee').valueChanges.subscribe((value) => {
+
+      const emp = value;
+      const rev = this.reviewForm.get('reviewers').value;
+
+      if (rev.includes(emp)) {
+        this.reviewForm.controls.employee.setErrors({ alreadyExist: true });
+      }
+
+    });
+
   }
   private _filter(value: string): string[] {
 
@@ -149,6 +160,14 @@ export class ReviewAddComponent implements OnInit {
 
   onSave() {
 
+    // check whether user chose from auto suggestion else set error
+    const emp = this.reviewForm.value.employee;
+    const arr = this.employeeList.filter(option => option.empId === emp);
+
+    if (arr.length === 0) {
+      this.reviewForm.controls.employee.setErrors({ invalid: true });
+      return;
+    }
     this.submitted = true;
 
     // TODO: Use EventEmitter with form value
@@ -190,10 +209,6 @@ export class ReviewAddComponent implements OnInit {
       this.reviewForm.value.reviewers.splice(this.reviewForm.value.reviewers.indexOf(this.reviewForm.value.employee), 1);
 
     }
-  }
-
-  getVal(item) {
-    console.log(item);
   }
 
 
